@@ -11,8 +11,8 @@ def run_rag(query, data_path, persist_dir, use_mmr=True):
     retriever = get_retriever(vectordb, use_mmr=use_mmr)
     llm = load_llm()
 
-    context_docs = retriever.get_relevant_documents(query)
-    context = "".join([d.page_content for d in context_docs])
+    context_docs = retriever.invoke(query)
+    context = "\n".join([d.page_content for d in context_docs])
     
     prompt = f"""
     Answer ONLY using the context below.
@@ -24,5 +24,5 @@ def run_rag(query, data_path, persist_dir, use_mmr=True):
     {query}
     """
 
-    return llm(prompt)
+    return llm.invoke(prompt)
 

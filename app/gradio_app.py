@@ -2,12 +2,17 @@ import gradio as gr
 from rag.pipeline import run_rag
 
 def answer(question, mmr):
-    return run_rag(
-        question,
-        data_path="data/knowledge_base",
-        persist_dir="vector_store/chroma_db",
-        use_mmr=mmr
-    )
+    try:
+        return run_rag(
+            question,
+            data_path="data/knowledge_base",
+            persist_dir="vector_store/chroma_db",
+            use_mmr=mmr
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return f"ERROR: {str(e)}"
 
 with gr.Blocks() as demo:
     gr.Markdown("# RAG Mini Hackathon‑2")
