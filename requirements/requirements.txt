@@ -1,0 +1,7 @@
+langchain
+sentence-transformers
+chromadb
+transformers
+gradio
+pypdf
+pytest
